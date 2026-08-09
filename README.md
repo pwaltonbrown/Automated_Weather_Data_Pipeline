@@ -17,7 +17,7 @@ This program requires **Python 3.x** and the following packages:
 * `requests` - For API interaction
 * `pandas` - For data manipulation
 * `pyarrow` - Backend storage engine for Pandas
-* `unittest` - For running the test suite
+* `unittest` - Included with Python's standard library for running the test suite
 
 Install the dependencies using pip:
 
