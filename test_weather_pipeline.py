@@ -13,7 +13,7 @@ import weather_pipeline
 class WeatherPipelineTests(unittest.TestCase):
     @patch("weather_pipeline.os.path.exists", return_value=False)
     @patch("pandas.DataFrame.to_csv")
-    @patch("weather_pipeline.requests.get")
+    @patch("requests.get")
     def test_run_pipeline_builds_request_with_base_url_and_params(self, mock_get, _mock_to_csv, _mock_exists):
         
         # Mock the API response
@@ -41,7 +41,7 @@ class WeatherPipelineTests(unittest.TestCase):
     # Test the run_pipeline function
     @patch("weather_pipeline.os.path.exists", return_value=False)
     @patch("pandas.DataFrame.to_csv")
-    @patch("weather_pipeline.requests.get")
+    @patch("requests.get")
     def test_run_pipeline_returns_early_on_failed_api_response(self, mock_get, mock_to_csv, _mock_exists):
         mock_get.return_value = Mock(status_code=500, text="server error")
 
