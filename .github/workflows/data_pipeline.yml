@@ -16,13 +16,13 @@ jobs:
   # Runs a single command using the runners shell
   run-pipeline:
     
-    # The type of runner that the job will run on
+    # sets The type of runner that the job will run on
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Grants write access to repository contents
     steps:
 
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
     - name: Checkout Repository Code
       uses: actions/checkout@v4
 
@@ -37,6 +37,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
+    # Runs the unit tests
+    - name: Run Unit Tests
+      run: python -m unittest test_weather_pipeline.py
 
     # Runs the weather pipeline
     - name: Run Weather Pipeline
