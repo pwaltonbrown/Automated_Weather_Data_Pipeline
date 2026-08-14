@@ -33,7 +33,7 @@ class WeatherPipelineTests(unittest.TestCase):
         weather_pipeline.run_pipeline()
             
         # this is to Make sure there's a ? before the first parameter
-        expected_url = f"https://openweathermap.org/data/2.5/weather?q={weather_pipeline.CITY.replace(',', '%2C')}&appid={weather_pipeline.API_KEY}&units=imperial"
+        expected_url = f"https://api.openweathermap.org/data/2.5/weather?q={weather_pipeline.CITY.replace(',', '%2C')}&appid={weather_pipeline.API_KEY}&units=imperial"
 
         # Assert that requests.get was called with the exact literal string layout
         mock_get.assert_called_once_with(expected_url)
