@@ -35,15 +35,11 @@ class WeatherPipelineTests(unittest.TestCase):
         # Assert that the requests.get function was called with the correct arguments
         mock_get.assert_called_once_with(
             
-            # Use the BASE_URL and params
-            weather_pipeline.BASE_URL,
-            
-            # Use the CITY, API_KEY, and units
-            params={
-                "q": weather_pipeline.CITY,
-                "appid": weather_pipeline.API_KEY,
-                "units": "imperial",
-            },
+        # this is to Make sure there's a ? before the first parameter
+        expected_url = f"https://openweathermap.org{weather_pipeline.CITY.replace(',', '%2C')}&appid={weather_pipeline.API_KEY}&units=imperial"
+
+        # Assert that requests.get was called with the exact literal string layout
+        mock_get.assert_called_once_with(expected_url) 
         )
 
     # Test the run_pipeline function
