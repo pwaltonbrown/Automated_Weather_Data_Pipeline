@@ -134,3 +134,4 @@ timestamp,city,temperature,humidity,weather_condition
 2026-08-26 06:47:44,Raleigh,65.68,86,clear sky
 2026-08-26 12:50:18,Raleigh,73.02,83,few clouds
 2026-08-26 19:46:24,Raleigh,89.33,48,scattered clouds
+2026-08-27 07:44:42,Raleigh,72.72,89,overcast clouds
