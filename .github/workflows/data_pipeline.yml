@@ -19,17 +19,28 @@ jobs:
       - name: Checkout Repository Code
         uses: actions/checkout@v4.2.2
 
-      # Sets up the Node.js environment for Node 24
-      - name: Set up Node.js Environment
-        uses: actions/setup-node@v4
+      # Sets up the Python environment 
+      - name: Set up Python Environment
+        uses: actions/setup-python@v5.4.0
         with:
-          node-version: '24'
+          python-version: '3.10'
+          cache: 'pip' # Clears your cache warnings and speeds up dependency installation
 
-      # Runs the weather pipeline directly using native Node 24 features
+      # Installs Python dependencies
+      - name: Install Libraries
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      # Runs the unit tests
+      - name: Run Unit Tests
+        run: python -m unittest test_weather_pipeline.py
+
+      # Runs the weather pipeline
       - name: Run Weather Pipeline
         env:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-        run: node weather_pipeline.js
+        run: python weather_pipeline.py
 
       # Commits the changes to the repository
       - name: Commit changes
