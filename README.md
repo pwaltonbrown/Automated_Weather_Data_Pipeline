@@ -31,6 +31,7 @@ pip install requests pandas pyarrow
 * `weather_pipeline.py`: The core script that fetches and structures the weather data.
 * `weather_history.csv`: The rolling ledger storing all historical weather records.
 * `test_weather_pipeline.py`: Unit tests ensuring URL accuracy and API error handling.
+* `user_access_program.py`: The program script that allows users to access the weater_history.csv data from their home computer without going to GitHub.
 * `.github/workflows/data_pipeline.yml`: The GitHub Actions workflow automating the execution.
 
 ## ⚙️ Configuration
@@ -41,3 +42,7 @@ pip install requests pandas pyarrow
 ## 🧪 Running Tests
 
 The workflow file data_pipline.yml runs validation of the API URL parameters and error handling before running the actual program file weather_pipline.py using test_weather_pipline.py every time that the workflow runs its scheduled data pull 6 times a day.
+
+## User Program
+
+The user_access_program.py file can be downloaded onto your computer and when run with all the required libraries from requierments.txt installed, and Wi-Fi enabled, you can access the weather_history.csv file and check the weather for any day on record.
