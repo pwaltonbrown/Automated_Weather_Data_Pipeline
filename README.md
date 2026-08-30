@@ -45,4 +45,4 @@ The workflow file data_pipline.yml runs validation of the API URL parameters and
 
 ## User Program
 
-The user_access_program.py file can be downloaded onto your computer and when run with all the required libraries from requierments.txt installed, and Wi-Fi enabled, you can access the weather_history.csv file and check the weather for any day on record.
+The user_access_program.py file can be downloaded on to your computer. When run with all the required libraries from requierments.txt installed, and Wi-Fi enabled, you can access the weather_history.csv file and check the weather for any day the pipeline has a record for.
