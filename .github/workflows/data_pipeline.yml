@@ -26,11 +26,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: 'npm' # Automatically caches dependencies for faster runs
+          # Removed the cache option to prevent the 'lock file not found' error
 
-      # Installs Node dependencies
+      # Installs Node dependencies (using npm install instead of npm ci since there is no lockfile)
       - name: Install Libraries
-        run: npm ci
+        run: npm install
 
       # Runs the unit tests
       - name: Run Unit Tests
