@@ -4,6 +4,7 @@
 # Date: 8/30/2026
 
 # import libraries
+import sys
 import pandas as pd
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -23,14 +24,29 @@ DATE_COlUMN = "timestamp"
 def fetch_data():
     # Fetch data from CSV
    try:
-        # Send a GET request to the CSV URL
-        response = requests.get(CSV_URL)
+        # Make a GET request to the CSV file
+        df = pd.read_csv(CSV_URL)
 
-        # Check if the request was successful
-        response.raise_for_status()
+        # Strip whitespace from column names
+        df.columns = df.columns.str.strip()
 
-        # Read the CSV data into a pandas DataFrame
-        return pd.read_csv(StringIO(response.text))
+        # Check if the date column exists
+        if DATE_COlUMN not in df.columns:
+
+            # Show an error message
+            raise ValueError(f"Column '{DATE_COlUMN}' not found. avalable columns: {list(df.columns)}")
+
+        # Strip commas from date column
+        df[DATE_COlUMN] = df[DATE_COlUMN].astype(str).str.strip().str.rstrip(",")
+
+        # Convert the date column to datetime
+        df[DATE_COlUMN] = pd.to_datetime(df[DATE_COlUMN], format="%Y-%m-%d %H:%M:%S")
+
+        # Drop rows with missing date
+        df = df.dropna(subset=[DATE_COlUMN])
+
+        # Return the DataFrame
+        return df
 
     # Handle any exceptions
    except requests.exceptions.RequestException as e:
@@ -44,6 +60,9 @@ def fetch_data():
 # filters data by the selected date
 def show_day_data():
 
+    # Get the selected date
+    selected_date = cal.get_date()
+
     # Fetch data
     df = fetch_data()
 
@@ -56,11 +75,8 @@ def show_day_data():
         # Return
         return
 
-    # get the selected date
-    selcted_date = cal.get_date()
-
     # Filter the DataFrame
-    filtered_df = df[df[DATE_COlUMN] == selcted_date]
+    filtered_df = df[df[DATE_COlUMN] == selected_date]
 
     # Check if filtered DataFrame is empty
     if filtered_df.empty:
@@ -71,15 +87,44 @@ def show_day_data():
         # Return
         return
 
+    display_df = filtered_df.copy()
+    display_df[DATE_COlUMN] = display_df[DATE_COlUMN].dt.srtftime("%Y-%m-%d %H:%M:%S")
+
     # create a popup window for the table
     popup = tk.Toplevel(root)
 
     # set the title of the popup window
-    popup.title("Weather Data for " + selcted_date)
+    popup.title("Weather Data for " + selected_date.strftime("%Y-%m-%d"))
 
-    # create a table to display the filtered data
-    table = ttk.Treeview(popup, columns=list(filtered_df.columns), show="headings")
+    # set the size of the popup window
+    popup.geometry("700x400")
 
+    # create a frame to hold the table
+    frame = tk.Frame(popup)
+
+    # pack the frame into the popup window
+    frame.pack(fill= tk.BOTH, expand=True, padx=10, pady=10)
+
+    # create the table
+    columns = list(display_df.columns)
+    table = ttk.Treeview(frame, columns=columns, show="headings")
+
+
+    # add the table to the frame
+    table.grid(row=0, column=0, sticky="nsew")
+
+    # create the scrollbar
+    vsb = ttk.Scrollbar(frame, orient="vertical", command=table.yview)
+    hsb = ttk.Scrollbar(frame, orient="horizontal", command=table.xview)
+
+    # configure the table
+    table.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+    # configure the frame
+    frame.grid_columnconfigure(0, weight=1)
+    frame.grid_rowconfigure(0, weight=1)
+
+    # configure the table
     # add columns to the table
     for col in filtered_df.columns:
 
@@ -95,18 +140,6 @@ def show_day_data():
         # add a row to the table
         table.insert("", "end", values=list(row))
 
-    # create a scrollbar
-    vsb = ttk.Scrollbar(popup, orient="vertical", command=table.yview)
-
-    # configure the table
-    table.configure(yscrollcommand=vsb.set)
-
-    # pack the table into the popup window
-    table.pack(side="left", fill="both", expand=True, padx=10, pady=10)
-
-    # pack the scrollbar into the popup window
-    vsb.pack(side="right", fill="y",pady=10)
-
 # create the main window
 root = tk.Tk()
 
@@ -116,7 +149,10 @@ root.title("Github Raleigh NC Weather Data Viewer")
 # set the size of the window
 root.geometry("350x200")
 
-tk.Label(root, text = "select a date: ", font=("Arial", 12)).pack(pady=10)
+# center the window
+root.eval('tk::PlaceWindow . center')
+
+label = ttk.Label(root, text = "select a date: ", font=("Arial", 12)).pack(pady=15)
 
 # create a date entry widget
 cal = DateEntry(root, width=12, background='darkblue', foreground='white', borderwidth=2, date_pattern='yyyy-mm-dd')
