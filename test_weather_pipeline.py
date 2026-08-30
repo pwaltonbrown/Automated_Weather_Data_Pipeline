@@ -8,6 +8,7 @@
 import unittest
 from unittest.mock import patch, Mock
 import weather_pipeline
+import os
 
 # Test the run_pipeline function
 class WeatherPipelineTests(unittest.TestCase):
