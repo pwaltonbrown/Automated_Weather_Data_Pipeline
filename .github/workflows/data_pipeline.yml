@@ -3,57 +3,50 @@
 # Date: 6/7/2026
 # Author: Patrick brown
 
-# Workflow trigger
 on:
   schedule:
     # Runs at minute 0 of every 6th hour (00:00, 06:00, 12:00, 18:00 UTC)
     - cron: '0 */6 * * *'
   workflow_dispatch: # Allows manual trigger execution anytime from the UI
 
-# Workflow steps
 jobs:
-  
-  # Runs a single command using the runners shell
   run-pipeline:
-    
-    # sets The type of runner that the job will run on
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Grants write access to repository contents
+      contents: write # Grants write access to repository contents
     steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4.2.2
 
-    # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
-    - name: Checkout Repository Code
-      uses: actions/checkout@v4.2.2
+      # Sets up the Python environment 
+      - name: Set up Python Environment
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: '3.10'
+          cache: 'pip' # Clears your cache warnings and speeds up dependency installation
 
-    # Sets up the Python environment
-    - name: Set up Python Environment
-      uses: actions/setup-python@v5.4.0
-      with:
-        python-version: '3.10'
-      
-    # Installs Python dependencies
-    - name: Install Libraries
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      # Installs Python dependencies
+      - name: Install Libraries
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # Runs the unit tests
-    - name: Run Unit Tests
-      run: python -m unittest test_weather_pipeline.py
+      # Runs the unit tests
+      - name: Run Unit Tests
+        run: python -m unittest test_weather_pipeline.py
 
-    # Runs the weather pipeline
-    - name: Run Weather Pipeline
-      env: # Passes secrets
-        WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-      run: python weather_pipeline.py
-    # Pushes changes to the repository
-    
-    # Commits the changes to the repository
-    - name: Commit changes 
-      env:
+      # Runs the weather pipeline
+      - name: Run Weather Pipeline
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: python weather_pipeline.py
+
+      # Commits the changes to the repository
+      - name: Commit changes
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
+        run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add weather_history.csv
