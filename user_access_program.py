@@ -116,7 +116,7 @@ root.title("Github Raleigh NC Weather Data Viewer")
 # set the size of the window
 root.geometry("350x200")
 
-tk.label(root, text = "select a date: ", font=("Arial", 12)).pack(pady=10)
+tk.Label(root, text = "select a date: ", font=("Arial", 12)).pack(pady=10)
 
 # create a date entry widget
 cal = DateEntry(root, width=12, background='darkblue', foreground='white', borderwidth=2, date_pattern='yyyy-mm-dd')
