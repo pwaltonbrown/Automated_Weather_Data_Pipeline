@@ -13,11 +13,6 @@ import os
 # Test the run_pipeline function
 class WeatherPipelineTests(unittest.TestCase):
     
-    def tearDown(self):
-        """Cleans up leftover files created by un-mocked pandas functions."""
-        if os.path.exists("weather_history.csv"):
-            os.remove("weather_history.csv")
-    
     @patch("weather_pipeline.os.path.exists", return_value=False)
     @patch("pandas.DataFrame.to_csv")
     @patch("requests.get")
