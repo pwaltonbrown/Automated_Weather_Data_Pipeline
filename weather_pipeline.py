@@ -49,7 +49,7 @@ def run_pipeline():
     # Match the JSON structure for 2.5 Current Weather
     cleaned_data = {
         # 2.5 Current Weather time
-        "timestamp": [datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")],
+        "timestamp": [datetime.utcnow().strftime("%Y-%m-%d")],
 
         # 2.5 Current Weather city name
         "city": [raw_data["name"]],

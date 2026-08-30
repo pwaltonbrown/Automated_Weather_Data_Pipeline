@@ -119,7 +119,7 @@ root.geometry("350x200")
 tk.Label(root, text = "select a date: ", font=("Arial", 12)).pack(pady=10)
 
 # create a date entry widget
-cal = DateEntry(root, width=12, background='darkblue', foreground='white', borderwidth=2, date_pattern='%Y-%m-%d %H:%M:%S')
+cal = DateEntry(root, width=12, background='darkblue', foreground='white', borderwidth=2, date_pattern='yyyy-mm-dd')
 
 # pack the date entry widget
 cal.pack(pady=10)
