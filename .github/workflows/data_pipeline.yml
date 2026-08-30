@@ -24,9 +24,15 @@ jobs:
         uses: actions/setup-python@v5.4.0
         with:
           python-version: '3.10'
-          cache: 'pip' # Clears your cache warnings and speeds up dependency installation
+          cache: 'pip'
 
-      # Installs Python dependencies
+      # Installs Linux system dependencies needed for Tkinter
+      - name: Install Linux GUI Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-tk
+
+      # Installs Python dependencies (Make sure 'tkinter' is removed from requirements.txt)
       - name: Install Libraries
         run: |
           python -m pip install --upgrade pip
@@ -48,8 +54,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-actions[bot]@://github.com"
           git add weather_history.csv
           git commit -m "Automated update: Added fresh weather records" || echo "No changes to commit"
           git pull origin main --rebase
           git push origin HEAD:main
+
