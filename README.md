@@ -1,6 +1,8 @@
 
 # Automated Weather Data Pipeline
+
 My degree focused heavily on traditional software development, so I wanted to teach myself cloud-native data pipelines. I used Al tools to rapidly prototype a serverless ETL pipeline, which allowed me to focus on understanding system architecture, event-driven triggers, and data validation constraints.
+
 This automated Python pipeline fetches daily weather data from OpenWeatherMap, organizes it into a clean format, and appends it to a historical CSV ledger using GitHub Actions.
 
 ## 🚀 Features
