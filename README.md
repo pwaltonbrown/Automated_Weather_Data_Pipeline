@@ -10,7 +10,7 @@ This automated Python pipeline fetches daily weather data from OpenWeatherMap, o
 * **Automated Data Retrieval**: Fetches high/low temperatures, humidity, and forecasts daily.
 * **Hands-Free Automation**: A GitHub Actions workflow runs the script 3 times a day.
 * **Self-Committing Ledger**: Automatically commits and pushes new data directly to the repository.
-* **Robust Testing**: Built-in unit tests verify API parameters and handle failures gracefully.
+* **Robust Testing**: Built-in unit test verify URL parameters and handle failures gracefully.
 
 ## 🛠️ Tech Stack & Prerequisites
 
@@ -19,7 +19,7 @@ This program requires **Python 3.x** and the following packages:
 * `requests` - For API interaction
 * `pandas` - For data manipulation
 * `pyarrow` - Backend storage engine for Pandas
-* `unittest` - For running the test suite
+* `tkcalendar` - For running the user access program date selector
 
 Install the dependencies using pip:
 
