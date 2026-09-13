@@ -8,7 +8,7 @@ This automated Python pipeline fetches daily weather data from OpenWeatherMap, o
 ## 🚀 Features
 
 * **Automated Data Retrieval**: Fetches high/low temperatures, humidity, and forecasts daily.
-* **Hands-Free Automation**: A GitHub Actions workflow runs the script 6 times a day.
+* **Hands-Free Automation**: A GitHub Actions workflow runs the script 3 times a day.
 * **Self-Committing Ledger**: Automatically commits and pushes new data directly to the repository.
 * **Robust Testing**: Built-in unit tests verify API parameters and handle failures gracefully.
 
@@ -43,7 +43,7 @@ pip install requests pandas pyarrow
 
 ## 🧪 Running Tests
 
-The workflow file data_pipeline.yml runs validation of the API URL parameters and error handling before running the actual program file weather_pipline.py using test_weather_pipline.py every time that the workflow runs its scheduled data pull 6 times a day.
+The workflow file data_pipeline.yml runs validation of the API URL parameters and error handling before running the actual program file weather_pipline.py using test_weather_pipline.py every time that the workflow runs its scheduled data pull 3 times a day.
 
 ## User Program
 
