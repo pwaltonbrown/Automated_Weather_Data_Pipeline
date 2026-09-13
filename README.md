@@ -24,7 +24,7 @@ This program requires **Python 3.x** and the following packages:
 Install the dependencies using pip:
 
 ```bash
-pip install requests pandas pyarrow
+pip install requests pandas pyarrow tkcalendar
 ```
 
 ## 📂 File Structure
