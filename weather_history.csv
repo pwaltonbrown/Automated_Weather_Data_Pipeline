@@ -2,3 +2,4 @@ timestamp,city,temperature,humidity,weather_condition
 2026-11-02 21:33:43,Raleigh,65.52,70,broken clouds
 2026-11-03 05:56:46,Raleigh,51.98,92,clear sky
 2026-11-03 13:59:01,Raleigh,59.29,85,clear sky
+2026-11-03 20:51:31,Raleigh,75.29,60,scattered clouds
