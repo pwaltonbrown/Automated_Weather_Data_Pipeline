@@ -59,3 +59,4 @@ timestamp,city,temperature,humidity,weather_condition
 2026-11-22 10:55:17,Raleigh,58.73,94,moderate rain
 2026-11-22 19:14:55,Raleigh,60.78,94,moderate rain
 2026-11-23 01:28:44,Raleigh,59.11,94,overcast clouds
+2026-11-23 12:00:10,Raleigh,58.24,95,mist
